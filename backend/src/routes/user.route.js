@@ -22,4 +22,6 @@ router.get("/outgoing-friend-requests", getOutgoingFriendReqs);
 
 
 
+
+
 export default router;
