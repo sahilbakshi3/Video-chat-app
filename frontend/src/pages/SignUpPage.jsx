@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Radar } from "lucide-react";
-import { Link, useNavigate } from "react-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { signup } from "../lib/api.js";
+import { Link } from "react-router";
+import useSignUp from "../hooks/useSignUp.js";
 
 // import useSignUp from "../hooks/useSignUp";
 
@@ -13,23 +12,7 @@ const SignUpPage = () => {
     password: "",
   });
 
-  // This is how we did it at first, without using our custom hook
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const {
-    mutate: signupMutation,
-    isPending,
-    error,
-  } = useMutation({
-    mutationFn: signup,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["authUser"] });
-      navigate("/");
-    },
-  });
-
-  // This is how we did it using our custom hook - optimized version
-  // const { isPending, error, signupMutation } = useSignUp();
+  const {isPending, error,signupMutation} = useSignUp();
 
   const handleSignup = (e) => {
     e.preventDefault();
